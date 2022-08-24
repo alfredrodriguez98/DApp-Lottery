@@ -3,15 +3,15 @@
 pragma solidity >=0.5.0 <0.9.0;
 
 contract Lottery {
-    address payable[] public players;
-    address public manager;
+    address payable[] public players;                                           //adding address of all players inside players array
+    address public manager;                                                     
 
     constructor() {
-        manager = msg.sender;
+        manager = msg.sender;                                                   // address of the contract owner
     }
 
     receive() external payable {
-        require(msg.value == 0.1 ether);
+        require(msg.value == 0.1 ether);                                        // min value required to participate in lottery
         players.push(payable(msg.sender));
     }
 
@@ -20,6 +20,7 @@ contract Lottery {
         return address(this).balance;
     }
 
+    // Generating a truly random number using keccak256 algorithm
     function random() internal view returns (uint256) {
         return
             uint256(
